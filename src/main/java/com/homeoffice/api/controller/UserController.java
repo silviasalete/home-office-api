@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.homeoffice.api.dto.UserDto;
 import com.homeoffice.api.model.User;
 import com.homeoffice.api.service.UserService;
+import com.homeoffice.api.web.dto.UserRegistrationDto;
 
 @RestController
 @RequestMapping("/user")
@@ -26,8 +26,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/save")
-	public User save(@RequestBody UserDto userDto) {
+	public User save(@RequestBody UserRegistrationDto userRegistrationDto) {
 		System.out.println("Chamou...save");
-		return userService.save(userDto);
+		return userService.save(userRegistrationDto);
 	}
 }
