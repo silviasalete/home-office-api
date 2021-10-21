@@ -11,15 +11,25 @@ import com.homeoffice.api.model.Activity;
 
 public class ActivityDto {
 
+	private Long id;
     private String title;
     private String description;
-    
-	public ActivityDto(String title, String description) {
+	
+	public ActivityDto(Long id, String title, String description) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.description = description;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -38,7 +48,7 @@ public class ActivityDto {
 
 	public static ActivityDto toDto(Activity activity) {
 		
-		return new ActivityDto(activity.getTitle(), activity.getDescription());
+		return new ActivityDto(activity.getId(), activity.getTitle(), activity.getDescription());
 	}
 
 	public static Page<ActivityDto> toDtoList(Page<Activity> listActivity) {
@@ -46,7 +56,7 @@ public class ActivityDto {
 		List<ActivityDto> listActivityDto = new ArrayList<ActivityDto>();
 		
 		for (Activity activity : listActivity) {
-			listActivityDto.add(new ActivityDto(activity.getTitle(), activity.getDescription()));
+			listActivityDto.add(new ActivityDto(activity.getId(), activity.getTitle(), activity.getDescription()));
 		}
 		
 		return new PageImpl<ActivityDto>(listActivityDto, listActivity.getPageable(), listActivity.getTotalElements());
