@@ -11,9 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.homeoffice.api.config.security.AuthenticationByTokenFilter;
 //import com.homeofficeapi.config.security.AuthenticationByTokenFilter;
 import com.homeoffice.api.config.security.AuthenticationService;
+import com.homeoffice.api.config.security.TokenService;
+import com.homeoffice.api.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -22,23 +26,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationService authenticationService;
 	
+	@Autowired
+	private TokenService tokenService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
 	
-//	Configurações de autenticação
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
-	//	Configurações de autorização
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET,"/user/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS,"/user/save").permitAll()
+			.antMatchers(HttpMethod.POST,"/user/save").permitAll()
 			.antMatchers(HttpMethod.OPTIONS,"/activity").permitAll()
 			.antMatchers(HttpMethod.GET,"/activity").permitAll()
 			.antMatchers(HttpMethod.OPTIONS,"/activity/save").permitAll()
@@ -48,10 +57,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.OPTIONS,"/activity/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/activity/*").permitAll()
 			.antMatchers(HttpMethod.GET,"/activity/*").permitAll()
-			.antMatchers(HttpMethod.POST,"/activity/auth").permitAll()
+			.antMatchers(HttpMethod.OPTIONS,"/auth").permitAll()
+			.antMatchers(HttpMethod.POST,"/auth").permitAll()
 			.anyRequest().authenticated()
-			.and().csrf().disable().cors().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//			.and().addFilterBefore(new AuthenticationByTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+			.and().csrf().disable()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and().addFilterBefore(new AuthenticationByTokenFilter(tokenService,userRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 }
