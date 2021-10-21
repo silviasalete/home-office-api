@@ -13,6 +13,6 @@ public interface  ActivityService {
 	Page<ActivityDto> findAll(Pageable pagination);
 	ActivityDto findById(Long id);
 	Activity save(ActivityForm activityForm, User user);
-	ActivityDto update(Long id, ActivityForm activityForm);
+	ActivityDto update(ActivityForm activityForm);
 	void delete(Long id);
 }

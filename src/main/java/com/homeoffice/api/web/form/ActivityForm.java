@@ -13,7 +13,16 @@ public class ActivityForm {
     private String title;
 	@NotNull @NotEmpty @Length(min = 5)
     private String description;
+	private Long id;
     
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}

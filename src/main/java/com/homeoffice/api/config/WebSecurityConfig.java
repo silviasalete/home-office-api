@@ -43,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET,"/activity").permitAll()
 			.antMatchers(HttpMethod.OPTIONS,"/activity/save").permitAll()
 			.antMatchers(HttpMethod.POST,"/activity/save").permitAll()
+			.antMatchers(HttpMethod.OPTIONS,"/activity/update").permitAll()
+			.antMatchers(HttpMethod.PUT,"/activity/update").permitAll()
 			.antMatchers(HttpMethod.OPTIONS,"/activity/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/activity/*").permitAll()
 			.antMatchers(HttpMethod.GET,"/activity/*").permitAll()

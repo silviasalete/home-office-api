@@ -46,9 +46,9 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public ActivityDto update(Long id, ActivityForm activityForm) {
+	public ActivityDto update(ActivityForm activityForm) {
 		
-		Activity activity = activityRepository.findById(id).get();
+		Activity activity = activityRepository.findById(activityForm.getId()).get();
 		activity.setTitle(activityForm.getTitle());
 		activity.setDescription(activityForm.getDescription());
 		

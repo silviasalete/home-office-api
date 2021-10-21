@@ -66,12 +66,12 @@ public class ActivityController {
 		return ResponseEntity.created(uri).body(ActivityDto.toDto(activity));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/update")
 	@Transactional
 	@CacheEvict(value = "ListActivity", allEntries = true)
-	public ResponseEntity<ActivityDto> update(@PathVariable Long id, @RequestBody @Valid ActivityForm activityForm) {
+	public ResponseEntity<ActivityDto> update(@RequestBody @Valid ActivityForm activityForm) {
 		
-		return ResponseEntity.ok(activityService.update(id,activityForm)) ;
+		return ResponseEntity.ok(activityService.update(activityForm)) ;
 	}
 	 
 	@DeleteMapping("/{id}")
