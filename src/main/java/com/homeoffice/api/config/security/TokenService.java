@@ -26,6 +26,11 @@ public class TokenService {
 		Date today = new Date();
 		Date dateExpiration = new Date(today.getTime() + Long.parseLong(expiration));
 		return Jwts.builder()
+				.setExpiration(dateExpiration)
+				.claim("id", logged.getId())
+				.claim("name", logged.getName())
+				.claim("email", logged.getEmail())
+				.claim("roles", logged.getRoles())
 				.setIssuer("API Home Office")
 				.setSubject(logged.getId().toString())
 				.setIssuedAt(dateExpiration)

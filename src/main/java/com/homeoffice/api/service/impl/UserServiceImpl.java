@@ -1,6 +1,7 @@
 package com.homeoffice.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.homeoffice.api.model.User;
@@ -16,6 +17,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(UserRegistrationDto userRegistrationDto) {
+		String passwordCrypt = new BCryptPasswordEncoder().encode(userRegistrationDto.getPassword());
+		userRegistrationDto.setPassword(passwordCrypt);
 		return userRepository.save(userRegistrationDto.toEntity(userRegistrationDto));
 	}
 

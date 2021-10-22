@@ -58,8 +58,7 @@ public class ActivityController {
 	public ResponseEntity<ActivityDto> save(@RequestBody @Valid ActivityForm activityForm,  UriComponentsBuilder uriBuilder) {
 		System.out.println("activityForm: "+activityForm.toString());
 		User user = new User();
-		user.setId(Long.valueOf(29));//Mock Remover
-		
+		user.setId(Long.valueOf(2)); //Mock remover
 		Activity activity = activityService.save(activityForm, userService.findById(user.getId()));
 		
 		URI uri = uriBuilder.path("/activity/{id}").buildAndExpand(activity.getId()).toUri();
@@ -69,9 +68,8 @@ public class ActivityController {
 	@PutMapping("/update")
 	@Transactional
 	@CacheEvict(value = "ListActivity", allEntries = true)
-	public ResponseEntity<ActivityDto> update(@RequestBody @Valid ActivityForm activityForm) {
-		
-		return ResponseEntity.ok(activityService.update(activityForm)) ;
+	public ResponseEntity<Activity> update(@RequestBody @Valid Activity activity) {
+		return ResponseEntity.ok(activityService.update(activity)) ;
 	}
 	 
 	@DeleteMapping("/{id}")
