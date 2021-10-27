@@ -10,9 +10,9 @@ import com.homeoffice.api.web.form.ActivityForm;
 
 public interface  ActivityService {
 
-	Page<ActivityDto> findAll(Pageable pagination);
+	Page<Activity> findAll(Pageable pagination);
 	ActivityDto findById(Long id);
 	Activity save(ActivityForm activityForm, User user);
-	Activity update(Activity activity);
+	ActivityDto update(Activity activity);
 	void delete(Long id);
 }

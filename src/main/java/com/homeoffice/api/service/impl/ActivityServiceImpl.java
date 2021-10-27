@@ -21,11 +21,11 @@ public class ActivityServiceImpl implements ActivityService {
 	ActivityRepository activityRepository;
 	
 	@Override
-	public Page<ActivityDto> findAll(Pageable pagination) {
+	public Page<Activity> findAll(Pageable pagination) {
 		
 		 Page<Activity>       activityList = activityRepository.findAll(pagination);
 		 
-		return ActivityDto.toDtoList(activityList);
+		return activityList;
 	}
 
 	@Override
@@ -46,13 +46,13 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public Activity update(Activity activity) {
+	public ActivityDto update(Activity activity) {
 		
 		Activity activityFound = activityRepository.findById(activity.getId()).get();
 		activityFound.setTitle(activity.getTitle());
 		activityFound.setDescription(activity.getDescription());
-		
-		return activityFound;
+		ActivityDto activityDto = new ActivityDto();
+		return activityDto.toDto(activityFound);
 	}
 
 	@Override

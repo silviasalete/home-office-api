@@ -15,6 +15,10 @@ public class ActivityDto {
     private String title;
     private String description;
 	
+	public ActivityDto() {
+		super();
+	}
+
 	public ActivityDto(Long id, String title, String description) {
 		super();
 		this.id = id;

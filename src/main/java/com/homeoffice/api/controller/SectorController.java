@@ -1,6 +1,9 @@
 package com.homeoffice.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,25 +11,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.homeoffice.api.model.User;
-import com.homeoffice.api.service.UserService;
-import com.homeoffice.api.web.dto.UserRegistrationDto;
+import com.homeoffice.api.model.Sector;
+import com.homeoffice.api.service.SectorService;
+import com.homeoffice.api.web.form.SectorForm;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/sector")
 @CrossOrigin(origins = "*")
-public class UserController {
+public class SectorController {
 	
 	@Autowired
-	private UserService userService;
+	private SectorService sectorService;
 
 	@GetMapping
-	public String helloWord() {
-		return "Hello World";
+	public List<Sector> all() {
+		return sectorService.findAll();
 	}
 	
 	@PostMapping("/save")
-	public User save(@RequestBody UserRegistrationDto userRegistrationDto) {
-		return userService.save(userRegistrationDto);
+	public ResponseEntity<Sector> save(@RequestBody SectorForm sectorForm) {
+		return ResponseEntity.ok(sectorService.save(sectorForm));
 	}
 }

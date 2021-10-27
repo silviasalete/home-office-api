@@ -42,7 +42,7 @@ public class ActivityController {
 
 	@GetMapping
 	@Cacheable(value = "ListActivity")
-	public Page<ActivityDto> findAll(Pageable pagination) {		
+	public Page<Activity> findAll(Pageable pagination) {		
 //		http://localhost:8080/activity?page=0&size=3&sort=id,desc&sort=title,asc
 		return activityService.findAll(pagination);
 	}
@@ -68,7 +68,7 @@ public class ActivityController {
 	@PutMapping("/update")
 	@Transactional
 	@CacheEvict(value = "ListActivity", allEntries = true)
-	public ResponseEntity<Activity> update(@RequestBody @Valid Activity activity) {
+	public ResponseEntity<ActivityDto> update(@RequestBody @Valid Activity activity) {
 		return ResponseEntity.ok(activityService.update(activity)) ;
 	}
 	 
