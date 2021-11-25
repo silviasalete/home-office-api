@@ -9,5 +9,6 @@ public interface SectorService{
 
 	List<Sector> findAll();
 	Sector save(SectorForm sectorForm);
+	Sector findById(Long id);
 
 }

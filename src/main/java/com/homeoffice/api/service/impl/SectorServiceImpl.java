@@ -26,4 +26,9 @@ public class SectorServiceImpl implements SectorService {
 		return sectorRepository.save(sectorForm.toEntity());
 	}
 
+	@Override
+	public Sector findById(Long id) {
+		return sectorRepository.findById(id).get();
+	}
+
 }
