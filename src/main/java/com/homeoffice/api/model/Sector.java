@@ -19,14 +19,6 @@ public class Sector {
 	private Long id;
 	private String name;
 	private boolean isDefault;
-    @ManyToMany
-    @JoinTable(
-    		name="companies_sectors",
-    		uniqueConstraints = @UniqueConstraint(columnNames = {"company_id", "sectors_id"}),
-    		joinColumns = @JoinColumn(name = "sectors_id"),
-    		inverseJoinColumns = @JoinColumn(name = "company_id")
-    )
-	public List<Company> companies;
 
 	public Sector() {
 		super();
@@ -56,17 +48,9 @@ public class Sector {
 		this.isDefault = isDefault;
 	}
 
-	public List<Company> getCompanies() {
-		return companies;
-	}
-
-	public void setCompanies(List<Company> companies) {
-		this.companies = companies;
-	}
-
 	@Override
 	public String toString() {
-		return "Sector [id=" + id + ", name=" + name + ", isDefault=" + isDefault + ", companies=" + companies + "]";
+		return "Sector [id=" + id + ", name=" + name + ", isDefault=" + isDefault + "]";
 	}
 	
 }

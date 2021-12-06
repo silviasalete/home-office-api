@@ -11,13 +11,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	public String name;
-    @ManyToMany(mappedBy = "companies")
-    @JoinTable(
-    		name="companies_sectors",
-    		uniqueConstraints = @UniqueConstraint(columnNames = {"company_id", "sectors_id"}),
-    		joinColumns = @JoinColumn(name = "company_id"),
-    		inverseJoinColumns = @JoinColumn(name = "sectors_id")
-    )
+    @OneToMany
 	public List<Sector> sectors;
     
 	public Company() {
